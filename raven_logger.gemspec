@@ -10,6 +10,6 @@ Gem::Specification.new do |gem|
   gem.homepage    = 'http://rubygems.org/gems/raven_logger'
   gem.license     = 'MIT'
 
-  gem.add_dependency 'rest-client', '1.6.7'
+  gem.add_dependency 'rest-client', '1.7.3'
   gem.add_dependency 'git-revision', '0.0.1'
 end
