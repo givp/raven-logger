@@ -8,15 +8,19 @@ This is a simple wrapper for a poorly-documented feature in Sentry. This gem wil
 gem install raven_logger
 ```
 
-### Usage
+### Setup
 
-- You need your Sentry project URL which looks like this: `https://sentry.io/api/<your_project_id>/store/` as well as your key and secret.
+You need the following environment variables set:
+
+- `SENTRY_PROJECT_URL` - Your Sentry project URL which looks like this: `https://sentry.io/api/<your_project_id>/store/`.
+- `SENTRY_KEY`
+- `SENTRY_SECRET`
+
+### Usage
 
 ```ruby
 require 'raven_logger'
 
-logger = RavenLogger.new(SENTRY_URL, SENTRY_KEY, SENTRY_SECRET)
-
-logger.captureMessage("Something happened", extra: { user_ids: 123 }, level: :info)
+RavenLogger.captureMessage("Something happened", extra: { user_ids: 123 }, level: :info)
 
 ```

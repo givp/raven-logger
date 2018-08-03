@@ -8,15 +8,17 @@ require 'git-revision'
 
 class RavenLogger
 
-  attr_reader :sentry_url, :sentry_key, :sentry_secret
-  def initialize(sentry_url, sentry_key, sentry_secret)
-    @sentry_url = sentry_url
-    @sentry_key = sentry_key
-    @sentry_secret = sentry_secret
+  class << self
+    def captureMessage(title, opts={})
+      new.captureMessage(title, opts)
+    end
   end
 
   def captureMessage(title, opts={})
     raise ArgumentError.new('Event title is missing') if !title
+    raise ArgumentError.new('SENTRY_PROJECT_URL env variable is missing') if !ENV['SENTRY_PROJECT_URL']
+    raise ArgumentError.new('SENTRY_KEY env variable is missing') if !ENV['SENTRY_KEY']
+    raise ArgumentError.new('SENTRY_SECRET env variable is missing') if !ENV['SENTRY_SECRET']
 
     opts = symbolize_keys(opts)
     opts[:level] ||= :info
@@ -38,12 +40,12 @@ class RavenLogger
       "logger": "ruby",
       "release": Git::Revision.commit_short,
       "server_name": Socket.gethostname,
-      "environment": ENV['RAILS_ENV'] || 'production',
+      "environment": ENV['RAILS_ENV'] || 'testing',
       "level": level,
       "extra": extra
     }
 
-    RestClient.post sentry_url, payload.to_json, headers
+    RestClient.post ENV['SENTRY_PROJECT_URL'], payload.to_json, headers
     Rails.logger.debug("Sentry event sent.".green)
     nil
   end
@@ -53,7 +55,7 @@ class RavenLogger
   def headers
     headers = {
       "Content-Type": "application/json",
-      "X-Sentry-Auth": "Sentry sentry_version=7, sentry_timestamp=#{Time.now.utc.to_i}, sentry_key=#{sentry_key}, sentry_secret=#{sentry_secret}, sentry_client=raven-intricately/1.0"
+      "X-Sentry-Auth": "Sentry sentry_version=7, sentry_timestamp=#{Time.now.utc.to_i}, sentry_key=#{ENV['SENTRY_KEY']}, sentry_secret=#{ENV['SENTRY_SECRET']}, sentry_client=raven-intricately/1.0"
     }
   end
 
