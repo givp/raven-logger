@@ -5,7 +5,7 @@ This is a simple wrapper for a poorly-documented feature in Sentry. This gem wil
 ### Install
 
 ```ruby
-gem install raven-logger
+gem install raven_logger
 ```
 
 ### Usage
