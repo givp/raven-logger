@@ -13,7 +13,7 @@ gem "raven-logger"
 - You need your Sentry project URL which looks like this: `https://sentry.io/api/<your_project_id>/store/` as well as your key and secret.
 
 ```ruby
-require raven_logger
+require 'raven_logger'
 
 logger = RavenLogger.new(SENTRY_URL, SENTRY_KEY, SENTRY_SECRET)
 
