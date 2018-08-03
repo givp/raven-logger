@@ -1,4 +1,4 @@
-# Raven-Logger, a Ruby Client for sending arbritary events to Sentry
+# Raven-Logger, a Ruby Client for sending arbitrary events to Sentry
 
 This is a simple wrapper for a poorly-documented feature in Sentry. This gem will allow you to log events to your Sentry project. This will also submit recent git info on your current branch.
 
