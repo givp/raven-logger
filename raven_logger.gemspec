@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name        = 'raven_logger'
-  gem.version     = '0.0.1'
+  gem.version     = '0.0.2'
   gem.date        = '2018-08-02'
   gem.summary     = "Ruby Raven Logger"
   gem.description = "Send arbitrary events to Sentry"
